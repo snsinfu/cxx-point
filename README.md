@@ -62,7 +62,7 @@ cxx::point position = {1, 2, 3};
 
 double spring_constant = 10;
 double energy = spring_constant * position.squared_distance(center) / 2;
-cxx::vector force = spring_constant * (position - center);
+cxx::vector force = -spring_constant * (position - center);
 
 std::cout << "Energy: " << energy << '\n';
 std::cout << "Force: " << force << '\n';
