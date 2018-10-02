@@ -3,7 +3,6 @@
 // file LICENSE.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sstream>
-#include <type_traits>
 
 #include "catch.hpp"
 #include "../include/point.hpp"
@@ -23,12 +22,6 @@ TEST_CASE("coordinates - is constructible from coordinate values")
     CHECK(coords.x == 1);
     CHECK(coords.y == 2);
     CHECK(coords.z == 3);
-}
-
-TEST_CASE("coordinates - is trivially-copyable, standard-layout type")
-{
-    CHECK(std::is_trivially_copyable<cxx::point_detail::coordinates>::value);
-    CHECK(std::is_standard_layout<cxx::point_detail::coordinates>::value);
 }
 
 TEST_CASE("coordinates - provide mutable element references")

@@ -3,7 +3,6 @@
 // file LICENSE.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sstream>
-#include <type_traits>
 
 #include "catch.hpp"
 #include "../include/point.hpp"
@@ -23,12 +22,6 @@ TEST_CASE("vector - is constructible from components")
     CHECK(vec.x == 1);
     CHECK(vec.y == 2);
     CHECK(vec.z == 3);
-}
-
-TEST_CASE("vector - is trivially-copyable, standard-layout type")
-{
-    CHECK(std::is_trivially_copyable<cxx::vector>::value);
-    CHECK(std::is_standard_layout<cxx::vector>::value);
 }
 
 TEST_CASE("vector - provides mutable element references")
