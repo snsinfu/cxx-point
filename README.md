@@ -48,7 +48,9 @@ into your code base just by renaming include guard and namespace (if necessary).
 
 The header provides two classes: `cxx::vector` and `cxx::point`. `cxx::vector`
 supports linear operations and norm calculation, whereas `cxx::point` supports
-affine operations and distance calculation.
+affine operations and distance calculation. [API docs][api].
+
+[api]: https://github.com/snsinfu/cxx-point/blob/master/API.md
 
 ### Example
 
@@ -65,8 +67,6 @@ cxx::vector force = spring_constant * (position - center);
 std::cout << "Energy: " << energy << '\n';
 std::cout << "Force: " << force << '\n';
 ```
-
-[API Docs](https://github.com/snsinfu/cxx-point/blob/master/README.md)
 
 ## Testing
 
