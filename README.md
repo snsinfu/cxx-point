@@ -55,17 +55,23 @@ affine operations and distance calculation. [API docs][api].
 ### Example
 
 ```c++
+#include <iostream>
+#include "point.hpp"
+
 // Compute the potential energy and force acting on a point in a harmonic well.
 
-cxx::point center;
-cxx::point position = {1, 2, 3};
+int main()
+{
+    cxx::point center;
+    cxx::point position = {1, 2, 3};
 
-double spring_constant = 10;
-double energy = spring_constant * position.squared_distance(center) / 2;
-cxx::vector force = -spring_constant * (position - center);
+    double spring_constant = 10;
+    double energy = spring_constant * position.squared_distance(center) / 2;
+    cxx::vector force = -spring_constant * (position - center);
 
-std::cout << "Energy: " << energy << '\n';
-std::cout << "Force: " << force << '\n';
+    std::cout << "Energy: " << energy << '\n';
+    std::cout << "Force: " << force << '\n';
+}
 ```
 
 ## Testing
