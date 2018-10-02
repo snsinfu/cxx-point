@@ -76,7 +76,7 @@ int main()
 
 ## Testing
 
-Tests require g++ or clang++ supporting c++11 and AddressSanitizer.
+Tests require g++ or clang++ supporting c++11.
 
 ```console
 git clone https://github.com/snsinfu/cxx-point

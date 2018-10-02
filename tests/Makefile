@@ -1,10 +1,6 @@
 OPTFLAGS = \
   -O2
 
-DBGFLAGS = \
-  -g \
-  -fsanitize=address
-
 CXXFLAGS = \
   -std=c++11 \
   -pedantic \
@@ -13,9 +9,7 @@ CXXFLAGS = \
   -Wconversion \
   -Wsign-conversion \
   -Wshadow \
-  $(OPTFLAGS) \
-  $(DBGFLAGS) \
-  $(INCLUDES)
+  $(OPTFLAGS)
 
 OBJECTS = \
   main.o \
@@ -25,7 +19,6 @@ OBJECTS = \
 
 ARTIFACTS = \
   $(OBJECTS) \
-  *.dSYM \
   main
 
 .SUFFIXES: .cc
@@ -35,7 +28,7 @@ test: main
 	@./main
 
 clean:
-	rm -rf $(ARTIFACTS)
+	rm -f $(ARTIFACTS)
 
 main: $(OBJECTS)
 	$(CXX) $(CXXFLAGS) $(LDFLAGS) -o $@ $(OBJECTS)
