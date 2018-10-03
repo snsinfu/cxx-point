@@ -230,7 +230,7 @@ namespace cxx
         return cxx::vector{vec} *= mult;
     }
 
-    // Multiplication `vec / divisor` returns vec with each component scaled by
+    // Division `vec / divisor` returns vec with each component scaled by
     // 1/divisor.
     inline cxx::vector operator/(cxx::vector const& vec, double divisor)
     {
