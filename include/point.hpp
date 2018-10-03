@@ -171,16 +171,16 @@ namespace cxx
             };
         }
 
-        // squared_norm returns the squared Euclidean norm of this vector.
-        inline double squared_norm() const noexcept
-        {
-            return dot(*this);
-        }
-
         // norm returns the Euclidean norm of this vector.
         inline double norm() const noexcept
         {
             return std::sqrt(squared_norm());
+        }
+
+        // squared_norm returns the squared Euclidean norm of this vector.
+        inline double squared_norm() const noexcept
+        {
+            return dot(*this);
         }
 
         // normalize returns the unit vector that is parallel to this vector.
@@ -249,16 +249,16 @@ namespace cxx
         return lhs.cross(rhs);
     }
 
-    // squared_norm returns the squares Euclidean norm of vec.
-    inline double squared_norm(cxx::vector const& vec) noexcept
-    {
-        return vec.squared_norm();
-    }
-
     // norm returns the Euclidean norm of vec.
     inline double norm(cxx::vector const& vec) noexcept
     {
         return vec.norm();
+    }
+
+    // squared_norm returns the squares Euclidean norm of vec.
+    inline double squared_norm(cxx::vector const& vec) noexcept
+    {
+        return vec.squared_norm();
     }
 
     // normalize returns the unit vector that is parallel to vec.
@@ -297,17 +297,17 @@ namespace cxx
             return *this;
         }
 
+        // distance returns the Euclidean distance between this point and other.
+        inline double distance(cxx::point const& other) const noexcept
+        {
+            return (vector() - other.vector()).norm();
+        }
+
         // squared_distance returns the squared Euclidean distance between this
         // point and other.
         inline double squared_distance(cxx::point const& other) const noexcept
         {
             return (vector() - other.vector()).squared_norm();
-        }
-
-        // distance returns the Euclidean distance between this point and other.
-        inline double distance(cxx::point const& other) const noexcept
-        {
-            return (vector() - other.vector()).norm();
         }
     };
 
@@ -329,17 +329,17 @@ namespace cxx
         return pa.vector() - pb.vector();
     }
 
+    // distance returns the Euclidean distance between pa and pb.
+    inline double distance(cxx::point const& pa, cxx::point const& pb) noexcept
+    {
+        return pa.distance(pb);
+    }
+
     // squared_distance returns the squared Euclidean distance between pa and
     // pb.
     inline double squared_distance(cxx::point const& pa, cxx::point const& pb) noexcept
     {
         return pa.squared_distance(pb);
-    }
-
-    // distance returns the Euclidean distance between pa and pb.
-    inline double distance(cxx::point const& pa, cxx::point const& pb) noexcept
-    {
-        return pa.distance(pb);
     }
 }
 
