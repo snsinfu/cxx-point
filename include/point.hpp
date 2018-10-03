@@ -119,7 +119,7 @@ namespace cxx
         using point_detail::coordinates::coordinates;
 
         // Component-wise addition.
-        inline cxx::vector& operator+=(cxx::vector const& other) noexcept
+        inline vector& operator+=(vector const& other) noexcept
         {
             x += other.x;
             y += other.y;
@@ -128,7 +128,7 @@ namespace cxx
         }
 
         // Component-wise subtraction.
-        inline cxx::vector& operator-=(cxx::vector const& other) noexcept
+        inline vector& operator-=(vector const& other) noexcept
         {
             x -= other.x;
             y -= other.y;
@@ -137,7 +137,7 @@ namespace cxx
         }
 
         // Scalar multiplication is broadcast to all components.
-        inline cxx::vector& operator*=(double mult) noexcept
+        inline vector& operator*=(double mult) noexcept
         {
             x *= mult;
             y *= mult;
@@ -146,13 +146,13 @@ namespace cxx
         }
 
         // Scalar division is broadcast to all components.
-        inline cxx::vector& operator/=(double divisor)
+        inline vector& operator/=(double divisor)
         {
             return *this *= 1 / divisor;
         }
 
         // dot returns the dot product of this vector and other.
-        inline double dot(cxx::vector const& other) const noexcept
+        inline double dot(vector const& other) const noexcept
         {
             return (
                 x * other.x +
@@ -162,9 +162,9 @@ namespace cxx
         }
 
         // cross returns the cross product of this vector and rhs.
-        inline cxx::vector cross(cxx::vector const& rhs) const noexcept
+        inline vector cross(vector const& rhs) const noexcept
         {
-            return cxx::vector {
+            return vector {
                 y * rhs.z - z * rhs.y,
                 z * rhs.x - x * rhs.z,
                 x * rhs.y - y * rhs.x
@@ -185,84 +185,84 @@ namespace cxx
 
         // normalize returns the unit vector that is parallel to this vector.
         // Behavior is undefined if this vector is zero.
-        inline cxx::vector normalize() const
+        inline vector normalize() const
         {
-            return cxx::vector{*this} /= norm();
+            return vector{*this} /= norm();
         }
     };
 
     // Unary no-op `+vec` returns a copy of vec.
-    inline cxx::vector operator+(cxx::vector const& vec) noexcept
+    inline vector operator+(vector const& vec) noexcept
     {
         return vec;
     }
 
     // Unary negation `-vec` returns an anti-parallel copy of vec.
-    inline cxx::vector operator-(cxx::vector const& vec) noexcept
+    inline vector operator-(vector const& vec) noexcept
     {
         return {-vec.x, -vec.y, -vec.z};
     }
 
     // Sum `lhs + rhs` returns a vector with component-wise sum of lhs and rhs.
-    inline cxx::vector operator+(cxx::vector const& lhs, cxx::vector const& rhs) noexcept
+    inline vector operator+(vector const& lhs, vector const& rhs) noexcept
     {
-        return cxx::vector{lhs} += rhs;
+        return vector{lhs} += rhs;
     }
 
     // Difference `lhs - rhs` returns a vector with component-wise difference of
     // lhs and rhs.
-    inline cxx::vector operator-(cxx::vector const& lhs, cxx::vector const& rhs) noexcept
+    inline vector operator-(vector const& lhs, vector const& rhs) noexcept
     {
-        return cxx::vector{lhs} -= rhs;
+        return vector{lhs} -= rhs;
     }
 
     // Multiplication `vec * mult` returns vec with each component scaled by
     // mult.
-    inline cxx::vector operator*(cxx::vector const& vec, double mult) noexcept
+    inline vector operator*(vector const& vec, double mult) noexcept
     {
-        return cxx::vector{vec} *= mult;
+        return vector{vec} *= mult;
     }
 
     // Multiplication `mult * vec` returns vec with each component scaled by
     // mult.
-    inline cxx::vector operator*(double mult, cxx::vector const& vec) noexcept
+    inline vector operator*(double mult, vector const& vec) noexcept
     {
-        return cxx::vector{vec} *= mult;
+        return vector{vec} *= mult;
     }
 
     // Division `vec / divisor` returns vec with each component scaled by
     // 1/divisor.
-    inline cxx::vector operator/(cxx::vector const& vec, double divisor)
+    inline vector operator/(vector const& vec, double divisor)
     {
-        return cxx::vector{vec} /= divisor;
+        return vector{vec} /= divisor;
     }
 
     // dot returns the dot product of lhs and rhs.
-    inline double dot(cxx::vector const& lhs, cxx::vector const& rhs) noexcept
+    inline double dot(vector const& lhs, vector const& rhs) noexcept
     {
         return lhs.dot(rhs);
     }
 
     // cross returns the cross product of lhs and rhs.
-    inline cxx::vector cross(cxx::vector const& lhs, cxx::vector const& rhs) noexcept
+    inline vector cross(vector const& lhs, vector const& rhs) noexcept
     {
         return lhs.cross(rhs);
     }
 
     // norm returns the Euclidean norm of vec.
-    inline double norm(cxx::vector const& vec) noexcept
+    inline double norm(vector const& vec) noexcept
     {
         return vec.norm();
     }
 
     // squared_norm returns the squares Euclidean norm of vec.
-    inline double squared_norm(cxx::vector const& vec) noexcept
+    inline double squared_norm(vector const& vec) noexcept
     {
         return vec.squared_norm();
     }
 
     // normalize returns the unit vector that is parallel to vec.
-    inline cxx::vector normalize(cxx::vector const& vec) noexcept
+    inline vector normalize(vector const& vec) noexcept
     {
         return vec.normalize();
     }
@@ -272,15 +272,16 @@ namespace cxx
     struct point : point_detail::coordinates
     {
         using point_detail::coordinates::coordinates;
+        using vector_t = struct vector;
 
         // vector returns the coordinate vector of this point.
-        inline cxx::vector vector() const noexcept
+        inline vector_t vector() const noexcept
         {
-            return cxx::vector{x, y, z};
+            return vector_t{x, y, z};
         }
 
         // Adding a vector translates the point.
-        inline cxx::point& operator+=(cxx::vector const& disp) noexcept
+        inline point& operator+=(vector_t const& disp) noexcept
         {
             x += disp.x;
             y += disp.y;
@@ -289,7 +290,7 @@ namespace cxx
         }
 
         // Subtracting a vector translates the point.
-        inline cxx::point& operator-=(cxx::vector const& disp) noexcept
+        inline point& operator-=(vector_t const& disp) noexcept
         {
             x -= disp.x;
             y -= disp.y;
@@ -298,46 +299,46 @@ namespace cxx
         }
 
         // distance returns the Euclidean distance between this point and other.
-        inline double distance(cxx::point const& other) const noexcept
+        inline double distance(point const& other) const noexcept
         {
             return (vector() - other.vector()).norm();
         }
 
         // squared_distance returns the squared Euclidean distance between this
         // point and other.
-        inline double squared_distance(cxx::point const& other) const noexcept
+        inline double squared_distance(point const& other) const noexcept
         {
             return (vector() - other.vector()).squared_norm();
         }
     };
 
     // Sum `pt + disp` returns the point pt translated by disp.
-    inline cxx::point operator+(cxx::point const& pt, cxx::vector const& disp) noexcept
+    inline point operator+(point const& pt, vector const& disp) noexcept
     {
-        return cxx::point{pt} += disp;
+        return point{pt} += disp;
     }
 
     // Difference `pt - disp` returns the point pt translated by -disp.
-    inline cxx::point operator-(cxx::point const& pt, cxx::vector const& disp) noexcept
+    inline point operator-(point const& pt, vector const& disp) noexcept
     {
-        return cxx::point{pt} -= disp;
+        return point{pt} -= disp;
     }
 
     // Difference `pa - pb` returns the displacement vector from pb towards pa.
-    inline cxx::vector operator-(cxx::point const& pa, cxx::point const& pb) noexcept
+    inline vector operator-(point const& pa, point const& pb) noexcept
     {
         return pa.vector() - pb.vector();
     }
 
     // distance returns the Euclidean distance between pa and pb.
-    inline double distance(cxx::point const& pa, cxx::point const& pb) noexcept
+    inline double distance(point const& pa, point const& pb) noexcept
     {
         return pa.distance(pb);
     }
 
     // squared_distance returns the squared Euclidean distance between pa and
     // pb.
-    inline double squared_distance(cxx::point const& pa, cxx::point const& pb) noexcept
+    inline double squared_distance(point const& pa, point const& pb) noexcept
     {
         return pa.squared_distance(pb);
     }
