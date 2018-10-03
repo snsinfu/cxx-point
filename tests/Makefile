@@ -37,6 +37,6 @@ main: $(OBJECTS)
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 main.o: catch.hpp
-coordinates.o: catch.hpp ../include/point.hpp
-vector.o: catch.hpp ../include/point.hpp
-point.o: catch.hpp ../include/point.hpp
+coordinates_test.o: catch.hpp ../include/point.hpp
+vector_test.o: catch.hpp ../include/point.hpp
+point_test.o: catch.hpp ../include/point.hpp
