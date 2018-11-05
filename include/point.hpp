@@ -189,6 +189,13 @@ namespace cxx
         {
             return vector{*this} /= norm();
         }
+
+        // project returns this vector projected onto the line defined by axis.
+        // Behavior is undefined if axis is zero.
+        inline vector project(vector const& axis) const
+        {
+            return vector{axis} *= dot(axis) / axis.squared_norm();
+        }
     };
 
     // Unary no-op `+vec` returns a copy of vec.
@@ -265,6 +272,12 @@ namespace cxx
     inline vector normalize(vector const& vec) noexcept
     {
         return vec.normalize();
+    }
+
+    // project returns vec projected onto the line defined by axis.
+    inline vector project(vector const& vec, vector const& axis) noexcept
+    {
+        return vec.project(axis);
     }
 
     // point is a cartesian representation of a point in the three-dimensional

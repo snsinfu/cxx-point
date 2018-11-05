@@ -113,6 +113,31 @@ TEST_CASE("vector::normalize - returns unit vector parallel to source")
     CHECK(unit.x == Approx(0.37139068));
 }
 
+TEST_CASE("vector::project - returns a projected vector")
+{
+    SECTION("projection onto a coordinate axis")
+    {
+        cxx::vector const vec = {2, 3, 5};
+        cxx::vector const axis = {7, 0, 0};
+        cxx::vector const proj = vec.project(axis);
+
+        CHECK(proj.x == Approx(2));
+        CHECK(proj.y == Approx(0));
+        CHECK(proj.z == Approx(0));
+    }
+
+    SECTION("projection onto an arbitrary vector")
+    {
+        cxx::vector const vec = {2, 3, 5};
+        cxx::vector const axis = {-3, 4, -5};
+        cxx::vector const proj = vec.project(axis);
+
+        CHECK(proj.x == Approx(1.14));
+        CHECK(proj.y == Approx(-1.52));
+        CHECK(proj.z == Approx(1.90));
+    }
+}
+
 TEST_CASE("dot - returns dot product")
 {
     cxx::vector const va = {2, 4, 6};
@@ -149,6 +174,32 @@ TEST_CASE("normalize - returns unit vector parallel to source")
     CHECK(unit.norm() == Approx(1));
     CHECK(unit.x == Approx(0.37139068));
 }
+
+TEST_CASE("project - returns the first vector projected onto the second vector")
+{
+    SECTION("projection onto a coordinate axis")
+    {
+        cxx::vector const vec = {2, 3, 5};
+        cxx::vector const axis = {7, 0, 0};
+        cxx::vector const proj = cxx::project(vec, axis);
+
+        CHECK(proj.x == Approx(2));
+        CHECK(proj.y == Approx(0));
+        CHECK(proj.z == Approx(0));
+    }
+
+    SECTION("projection onto an arbitrary vector")
+    {
+        cxx::vector const vec = {2, 3, 5};
+        cxx::vector const axis = {-3, 4, -5};
+        cxx::vector const proj = cxx::project(vec, axis);
+
+        CHECK(proj.x == Approx(1.14));
+        CHECK(proj.y == Approx(-1.52));
+        CHECK(proj.z == Approx(1.90));
+    }
+}
+
 
 TEST_CASE("vector - is formattable")
 {

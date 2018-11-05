@@ -31,6 +31,7 @@ For `cxx::vector u, v`, `double x, y, z`, `std::istream in` and
 | u.norm(), norm(u)                   | Euclidean norm of u               |
 | u.squared\_norm(), squared\_norm(u) | squared Euclidean norm of u       |
 | u.normalize(), normalize(u)         | u/norm(u)                         |
+| u.project(v), project(u, v)         | u projected onto v                |
 | in >> u                             | read "x y z" from in              |
 | out << u                            | write "x y z" to out              |
 
