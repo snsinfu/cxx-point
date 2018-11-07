@@ -171,6 +171,16 @@ namespace cxx
             };
         }
 
+        // hadamard returns the hadamard product of this vector and rhs.
+        inline vector hadamard(vector const& rhs) const noexcept
+        {
+            return vector {
+                x * rhs.x,
+                y * rhs.y,
+                z * rhs.z
+            };
+        }
+
         // norm returns the Euclidean norm of this vector.
         inline double norm() const noexcept
         {
@@ -254,6 +264,12 @@ namespace cxx
     inline vector cross(vector const& lhs, vector const& rhs) noexcept
     {
         return lhs.cross(rhs);
+    }
+
+    // hadamard returns the hadamard product of lhs and rhs.
+    inline vector hadamard(vector const& lhs, vector const& rhs) noexcept
+    {
+        return lhs.hadamard(rhs);
     }
 
     // norm returns the Euclidean norm of vec.

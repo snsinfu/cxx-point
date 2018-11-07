@@ -28,6 +28,7 @@ For `cxx::vector u, v`, `double x, y, z`, `std::istream in` and
 | u / x                               | copy of u scaled by 1/x           |
 | u.dot(v), dot(u, v)                 | dot product of u and v            |
 | u.cross(v), cross(u, v)             | cross product of u and v          |
+| u.hadamard(v), hadamard(u, v)       | Hadamard product of u and v       |
 | u.norm(), norm(u)                   | Euclidean norm of u               |
 | u.squared\_norm(), squared\_norm(u) | squared Euclidean norm of u       |
 | u.normalize(), normalize(u)         | u/norm(u)                         |

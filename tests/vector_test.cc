@@ -93,6 +93,16 @@ TEST_CASE("vector::cross - returns cross product")
     CHECK(vc.z == -10);
 }
 
+TEST_CASE("vector::hadamard - returns hadamard product")
+{
+    cxx::vector const va = {2, 4, 6};
+    cxx::vector const vb = {3, 1, 5};
+    cxx::vector const vc = va.hadamard(vb);
+    CHECK(vc.x == 6);
+    CHECK(vc.y == 4);
+    CHECK(vc.z == 30);
+}
+
 TEST_CASE("vector::squared_norm - returns squared Euclidean norm")
 {
     cxx::vector const vec = {2, 3, 4};
@@ -153,6 +163,16 @@ TEST_CASE("cross - returns cross product")
     CHECK(vc.x == 14);
     CHECK(vc.y == 8);
     CHECK(vc.z == -10);
+}
+
+TEST_CASE("hadamard - returns hadamard product")
+{
+    cxx::vector const va = {2, 4, 6};
+    cxx::vector const vb = {3, 1, 5};
+    cxx::vector const vc = cxx::hadamard(va, vb);
+    CHECK(vc.x == 6);
+    CHECK(vc.y == 4);
+    CHECK(vc.z == 30);
 }
 
 TEST_CASE("squared_norm - returns squared Euclidean norm")
