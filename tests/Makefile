@@ -15,7 +15,8 @@ OBJECTS = \
   main.o \
   coordinates_test.o \
   vector_test.o \
-  point_test.o
+  point_test.o \
+  matrix_test.o
 
 ARTIFACTS = \
   $(OBJECTS) \
@@ -40,3 +41,4 @@ main.o: catch.hpp
 coordinates_test.o: catch.hpp ../include/point.hpp
 vector_test.o: catch.hpp ../include/point.hpp
 point_test.o: catch.hpp ../include/point.hpp
+matrix_test.o: catch.hpp ../include/point.hpp

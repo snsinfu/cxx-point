@@ -61,3 +61,34 @@ For `cxx::point p, q` and `double x, y, z`, `std::istream in` and
 | p.squared\_distance(q), squared\_distance(p, q) | squared distance between p and q |
 | in >> q                                         | read "x y z" from in             |
 | out << p                                        | write "x y z" to out             |
+
+## cxx::matrix
+
+`matrix` is a three-dimensional square matrix. It supports linear operations,
+matrix products, vector left-products and iostream.
+
+For `cxx::matrix A, B`, `cxx::vector v`, `double a, b, c, r, s, t, x, y, z`,
+`size_t i, j`, `std::istream in` and `std::ostream out`:
+
+| Expression                          | Meaning                           |
+| ----------------------------------- | --------------------------------- |
+| matrix{}                            | zero matrix                       |
+| matrix{a, b, c}                     | diagonal matrix                   |
+| matrix{a, b, c, r, s, t, x, y, z}   | full 3-by-3 matrix                |
+| A(i, j)                             | i,j-component of A                |
+| A += B                              | add v to u                        |
+| A -= B                              | subtract v from u                 |
+| A \*= a                             | multiply all elements of A by a   |
+| A /= a                              | divide all elements of A by a     |
+| +A                                  | copy of A                         |
+| -A                                  | negated copy of A                 |
+| A + B                               | sum of A and B                    |
+| A - B                               | difference of A and B             |
+| A \* a                              | copy of A scaled by a             |
+| a \* A                              | copy of A scaled by a             |
+| A / a                               | copy of A scaled by 1/a           |
+| A.dot(B), dot(A, B)                 | matrix product of A and B         |
+| A.dot(v), dot(A, v)                 | matrix product of A and v         |
+| A.transpose(), transpose(A)         | transposed copy of A              |
+| in >> A                             | read "a b c r s t x y z" from in  |
+| out << A                            | write "a b c r s t x y z" to out  |

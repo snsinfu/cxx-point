@@ -371,6 +371,226 @@ namespace cxx
     {
         return pa.squared_distance(pb);
     }
+
+    // matrix is a three-dimensional square matrix.
+    struct matrix
+    {
+        double elements[3][3] = {};
+
+        // Default constructor initializes all elements to zero.
+        matrix() = default;
+
+        // Initializes matrix with diagonal elements.
+        inline matrix(double a, double b, double c) noexcept
+            : elements{{a, 0, 0}, {0, b, 0}, {0, 0, c}}
+        {
+        }
+
+        // Initializes matrix with full elements in row-major order.
+        inline matrix(
+            double a11,
+            double a12,
+            double a13,
+            double a21,
+            double a22,
+            double a23,
+            double a31,
+            double a32,
+            double a33
+        ) noexcept
+            : elements{{a11, a12, a13}, {a21, a22, a23}, {a31, a32, a33}}
+        {
+        }
+
+        // Returns a reference to the i,j element.
+        inline double& operator()(std::size_t i, std::size_t j)
+        {
+            return elements[i][j];
+        }
+
+        inline double const& operator()(std::size_t i, std::size_t j) const
+        {
+            return elements[i][j];
+        }
+
+        // Element-wise addition.
+        inline matrix& operator+=(matrix const& other) noexcept
+        {
+            for (std::size_t i = 0; i < 9; i++) {
+                (&elements[0][0])[i] += (&other.elements[0][0])[i];
+            }
+            return *this;
+        }
+
+        // Element-wise subtraction.
+        inline matrix& operator-=(matrix const& other) noexcept
+        {
+            for (std::size_t i = 0; i < 9; i++) {
+                (&elements[0][0])[i] -= (&other.elements[0][0])[i];
+            }
+            return *this;
+        }
+
+        // Element-wise multiplication by a scalar.
+        inline matrix& operator*=(double mult) noexcept
+        {
+            for (std::size_t i = 0; i < 9; i++) {
+                (&elements[0][0])[i] *= mult;
+            }
+            return *this;
+        }
+
+        // Element-wise division by a scalar.
+        inline matrix& operator/=(double divisor)
+        {
+            return *this *= 1 / divisor;
+        }
+
+        inline vector row(std::size_t i) const noexcept
+        {
+            return {elements[i][0], elements[i][1], elements[i][2]};
+        }
+
+        inline vector column(std::size_t i) const noexcept
+        {
+            return {elements[0][i], elements[1][i], elements[2][i]};
+        }
+
+        // Matrix product.
+        inline matrix dot(matrix const& other) const noexcept
+        {
+            return {
+                row(0).dot(other.column(0)),
+                row(0).dot(other.column(1)),
+                row(0).dot(other.column(2)),
+                row(1).dot(other.column(0)),
+                row(1).dot(other.column(1)),
+                row(1).dot(other.column(2)),
+                row(2).dot(other.column(0)),
+                row(2).dot(other.column(1)),
+                row(2).dot(other.column(2))
+            };
+        }
+
+        // Matrix product with vector.
+        inline vector dot(vector const& vec) const noexcept
+        {
+            return {row(0).dot(vec), row(1).dot(vec), row(2).dot(vec)};
+        }
+
+        // Returns a transposed copy.
+        inline matrix transpose() const noexcept
+        {
+            return {
+                elements[0][0], elements[1][0], elements[2][0],
+                elements[0][1], elements[1][1], elements[2][1],
+                elements[0][2], elements[1][2], elements[2][2]
+            };
+        }
+    };
+
+    // Returns a copy of mat.
+    inline matrix operator+(matrix const& mat) noexcept
+    {
+        return mat;
+    }
+
+    // Returns a negated copy of mat.
+    inline matrix operator-(matrix const& mat) noexcept
+    {
+        return {
+            -mat(0, 0), -mat(0, 1), -mat(0, 2),
+            -mat(1, 0), -mat(1, 1), -mat(1, 2),
+            -mat(2, 0), -mat(2, 1), -mat(2, 2)
+        };
+    }
+
+    // Returns the sum of two matrices.
+    inline matrix operator+(matrix const& lhs, matrix const& rhs) noexcept
+    {
+        return matrix{lhs} += rhs;
+    }
+
+    // Returns the difference of two matrices.
+    inline matrix operator-(matrix const& lhs, matrix const& rhs) noexcept
+    {
+        return matrix{lhs} -= rhs;
+    }
+
+    // Returns scalar multiplication of a matrix.
+    inline matrix operator*(matrix const& lhs, double rhs) noexcept
+    {
+        return matrix{lhs} *= rhs;
+    }
+
+    // Returns scalar multiplication of a matrix.
+    inline matrix operator*(double lhs, matrix const& rhs) noexcept
+    {
+        return matrix{rhs} *= lhs;
+    }
+
+    // Returns scalar quotient of a matrix divided by scalar.
+    inline matrix operator/(matrix const& lhs, double rhs) noexcept
+    {
+        return matrix{lhs} *= 1 / rhs;
+    }
+
+    // Returns matrix product of two matrices.
+    inline matrix dot(matrix const& lhs, matrix const& rhs) noexcept
+    {
+        return lhs.dot(rhs);
+    }
+
+    // Returns matrix transformation of a vector.
+    inline vector dot(matrix const& lhs, vector const& rhs) noexcept
+    {
+        return lhs.dot(rhs);
+    }
+
+    // Returns a transposed copy of mat.
+    inline matrix transpose(matrix const& mat) noexcept
+    {
+        return mat.transpose();
+    }
+
+    template<typename Char, typename Tr>
+    std::basic_ostream<Char, Tr>& operator<<(
+        std::basic_ostream<Char, Tr>& os,
+        matrix const& mat
+    )
+    {
+        using sentry_type = typename std::basic_ostream<Char, Tr>::sentry;
+
+        if (sentry_type sentry{os}) {
+            Char const delim = os.widen(' ');
+            Char const newline = os.widen('\n');
+
+            os << mat(0, 0) << delim << mat(0, 1) << delim << mat(0, 2);
+            os << newline;
+            os << mat(1, 0) << delim << mat(1, 1) << delim << mat(1, 2);
+            os << newline;
+            os << mat(2, 0) << delim << mat(2, 1) << delim << mat(2, 2);
+        }
+
+        return os;
+    }
+
+    template<typename Char, typename Tr>
+    std::basic_istream<Char, Tr>& operator>>(
+        std::basic_istream<Char, Tr>& is,
+        matrix& mat
+    )
+    {
+        using sentry_type = typename std::basic_istream<Char, Tr>::sentry;
+
+        if (sentry_type sentry{is}) {
+            is >> mat(0, 0) >> mat(0, 1) >> mat(0, 2);
+            is >> mat(1, 0) >> mat(1, 1) >> mat(1, 2);
+            is >> mat(2, 0) >> mat(2, 1) >> mat(2, 2);
+        }
+
+        return is;
+    }
 }
 
 #endif
